@@ -1,0 +1,11 @@
+{	
+	"info_send": {
+		"days": [0, 1, 2, 3],
+		"hour_send": 12,
+		"min_send": 12
+	},
+	"nome_server": "Nome do seu servidor",
+	"nome_sala": "Nome do canal de texto em seu servidor",
+	"prefix": "+",
+	"token_bot": "token do seu bot"
+}
