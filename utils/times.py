@@ -7,7 +7,7 @@ def getTimeNow(format=None):
 
     if(format is not None):
         return datetime.now(timezoneBR).strftime(format)
-        
+
     return datetime.now(timezoneBR) 
 
 def get_seconds_to_wait(ha):
@@ -32,31 +32,27 @@ def get_seconds_to_wait(ha):
     return future, secs_to_wait
 
 def diff_seconds(d1, d2):
-    d1_str = d1.strftime('%d-%m-%Y %H:%M:%S')
-    d2_str = d2.strftime('%d-%m-%Y %H:%M:%S')
-    total_time = datetime.strptime(d2_str, '%d-%m-%Y %H:%M:%S') - datetime.strptime(d1_str, '%d-%m-%Y %H:%M:%S')
-    return int(total_time.total_seconds())
+    diff = d2-d1
+    return int(diff.total_seconds())
 
 def find_next_day(new_day, days):
+    
+    days_aux = days.copy()
+    days_aux.append(new_day)
+    days_aux.sort()
+    idx = days_aux.index(new_day) + 1
 
-    days.append(new_day)
-    days.sort()
-    idx = days.index(new_day) + 1
-
-    if(idx >= len(days)):
+    if(idx >= len(days_aux)):
         idx = 0
 
-    return days[idx]
+    return days_aux[idx]
 
 def dist_weekdays(day1, day2):
     return 7 - (day1 - day2)
 
-def get_remaing_time(time_future):
-
+def get_left_time(time_future):
     time_now = getTimeNow()
     time_left_secs = diff_seconds(time_now, time_future)
-
     hours, remainder = divmod(time_left_secs, 3600)
     minutes, seconds = divmod(remainder, 60)
-
-    return hours, minutes
+    return hours, minutes, seconds

@@ -20,6 +20,7 @@ async def send_horario(db, infos, configs):
     
     embedGeral = discord.Embed(title='Horário Geral', color=0x00ff00)
     embedGeral.set_image(url=db['img_horario'])
+    
     embedInit = discord.Embed(color=0x0000ff, title=f'Horário de {nome_dia}')
     
     await channel.send(embed=embedGeral)
@@ -28,10 +29,7 @@ async def send_horario(db, infos, configs):
     for materia_id, inicio in zip(materias_ids, inicios):
         for materia in db['materias']:
             if(materia['id'] == materia_id):
-                textEmbed = f"**[{inicio}]**    *{materia['nome']}*    ({materia['prof']})"
-                linkEmbed = materia['link']
-                embedAula = discord.Embed(color=0x0000ff, title=textEmbed, url=linkEmbed))
-                await channel.send(embed=embedAula)
+                await channel.send(embed=discord.Embed(color=0x0000ff, title=f"**[{inicio}]**    *{materia['nome']}*    ({materia['prof']})", url=materia['link']))
 
     new_future_aulas, _ = times.get_seconds_to_wait(configs['info_send'])
     infos['future_aulas'] = new_future_aulas

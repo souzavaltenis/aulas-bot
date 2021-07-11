@@ -29,10 +29,10 @@ async def task_send_aulas():
     await asyncio.sleep(secs_to_wait_aulas)
     await util.send_horario(db, infos, configs)
 
-@tasks.loop(minutes=1)
+@tasks.loop(seconds=30)
 async def change_status_bot():
-    hours, minutes = times.get_remaing_time(infos['future_aulas'])
-    status_msg = f"+Aulas em {hours}Hr {minutes}Min"
+    hours, minutes, seconds = times.get_left_time(infos['future_aulas'])
+    status_msg = '+Aulas em {:02}:{:02}:{:02}'.format(hours, minutes, seconds)
     await bot.change_presence(activity=discord.Game(name=status_msg))
 
 @bot.command(name='aulas')
